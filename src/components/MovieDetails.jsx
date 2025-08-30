@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import StarRating from "./StarRating";
 import Loader from "./Loader";
+import { useKey } from "../hooks/useKey";
 
 function MovieDetails({
   selectedId,
@@ -40,6 +41,8 @@ function MovieDetails({
     onCloseMovie();
   }
 
+  useKey("Escape", onCloseMovie);
+
   useEffect(
     function () {
       async function getMovieDetails() {
@@ -53,7 +56,7 @@ function MovieDetails({
       }
       getMovieDetails();
     },
-    [selectedId]
+    [selectedId, apiKey]
   );
 
   useEffect(
@@ -65,18 +68,6 @@ function MovieDetails({
     },
     [title]
   );
-
-  useEffect(() => {
-    function callback(e) {
-      if (e.code === "Escape") {
-        onCloseMovie();
-      }
-    }
-
-    document.addEventListener("keydown", callback);
-
-    return () => document.removeEventListener("keydown", callback);
-  }, [onCloseMovie]);
 
   return (
     <div className="details">
@@ -115,11 +106,11 @@ function MovieDetails({
                 </button>
               )}
             </div>
-            <p>
+            <div>
               <em>{plot}</em>
               <p>Starring {actors}</p>
               <p>Directed by {director}</p>
-            </p>
+            </div>
           </section>
         </>
       )}

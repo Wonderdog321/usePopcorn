@@ -77,7 +77,7 @@ export function WatchedMovieList({ watched, onDeleteWatched }) {
     <ul className="list">
       {watched.map((movie) => (
         <WatchedMovie
-          key={movie.imdbID}
+          key={movie.imdbId}
           {...movie}
           onDeleteWatched={onDeleteWatched}
         />
@@ -92,7 +92,7 @@ function WatchedMovie({
   imdbRating,
   userRating,
   runtime,
-  imdbId,
+  imdbID,
   onDeleteWatched,
 }) {
   return (
@@ -112,7 +112,7 @@ function WatchedMovie({
           <span>⏳</span>
           <span>{runtime} min</span>
         </p>
-        <button className="btn-delete" onClick={() => onDeleteWatched(imdbId)}>
+        <button className="btn-delete" onClick={() => onDeleteWatched(imdbID)}>
           X
         </button>
       </div>
